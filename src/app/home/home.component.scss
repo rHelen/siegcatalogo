@@ -176,3 +176,16 @@
 .busca-title {
   margin-bottom: 3px;
 }
+
+.filtros-info {
+  position: relative;
+  top: 10px;
+  button {
+    padding: 5px 9px;
+    margin-left: 5px;
+    border-radius: 6px;
+    border: none;
+    background-color: rgb(74, 13, 74);
+    color: white;
+  }
+}

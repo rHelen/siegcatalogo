@@ -35,17 +35,19 @@
       />
       </div>
 
-    <app-filtro
-    [categorias]="categorias"
-    [filtros]="filtros"
-    (filtrosChange)="onFiltrosChange($event)"
-    ></app-filtro>
+      <app-filtro
+      [categorias]="categorias"
+      [filtros]="filtros"
+      (filtrosChange)="onFiltrosChange($event)"
+      ></app-filtro>
+
+      <div class="filtros-info">
+      <span *ngIf="filtrosAtivos > 0" class="badge">{{ filtrosAtivos }}</span>
+      <button (click)="limparFiltros()" *ngIf="filtrosAtivos > 0">Limpar filtros</button>
+      </div>
+
     </div>
 
-    <div class="filtros-info">
-    <span *ngIf="filtrosAtivos > 0" class="badge">{{ filtrosAtivos }}</span>
-    <button (click)="limparFiltros()" *ngIf="filtrosAtivos > 0">Limpar filtros</button>
-    </div>
 
     <div class="produtos-grid">
     <div class="produto-card" *ngFor="let produto of produtos$ | async">

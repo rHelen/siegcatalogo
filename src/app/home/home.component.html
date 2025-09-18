@@ -1,0 +1,68 @@
+<nav class="menu">
+  <div class="titulo">
+    <span class="logo">SIEG Móveis e Eletro</span>
+  </div>
+  <div class="nav-icones">
+    <div class="menu-hamburguer" tabindex="0">
+      <span class="hamburguer-icon">&#9776;</span>
+      <div class="dropdown-menu">
+        <button (click)="abrirModal('favoritos')" class="dropdown-item">
+          <span class="icon">&#10084;</span> Favoritos
+        </button>
+        <button (click)="abrirModal('carrinho')" class="dropdown-item">
+          <span class="icon">&#128722;</span> Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<app-carrinho
+  [aberto]="modalAberto"
+  [tipo]="modalTipo"
+  (fechar)="fecharModal()"
+></app-carrinho>
+
+<ng-container *ngIf="produtos$ | async as produtos" class="container">
+    <div style="display: flex; flex-direction: row; align-items: center; margin-left: 3rem;">
+      <div style="display: flex; flex-direction: column; margin-right: 1rem;">
+        <span class="busca-title">Busca</span>
+        <input
+          type="text"
+          placeholder="Buscar produtos..."
+          (input)="onBusca($event)"
+          class="input-busca"
+      />
+      </div>
+
+    <app-filtro
+    [categorias]="categorias"
+    [filtros]="filtros"
+    (filtrosChange)="onFiltrosChange($event)"
+    ></app-filtro>
+    </div>
+
+    <div class="filtros-info">
+    <span *ngIf="filtrosAtivos > 0" class="badge">{{ filtrosAtivos }}</span>
+    <button (click)="limparFiltros()" *ngIf="filtrosAtivos > 0">Limpar filtros</button>
+    </div>
+
+    <div class="produtos-grid">
+    <div class="produto-card" *ngFor="let produto of produtos$ | async">
+        <img [src]="produto.imagem" [alt]="produto.nome" class="produto-img" />
+        <div class="produto-info">
+        <h3>{{ produto.nome }}</h3>
+        <p class="preco">R$ {{ produto.preco }}</p>
+        <div class="rating">
+            <span *ngFor="let star of [1,2,3,4,5]; let i = index">
+            <i class="star" [class.filled]="produto.rating > i">&#9733;</i>
+            </span>
+        </div>
+        <div class="botoes">
+            <button title="Favoritar" (click)="adicionarAosFavoritos(produto)">&#10084;</button>
+            <button title="Adicionar ao carrinho" (click)="adicionarAoCarrinho(produto)">&#128722;</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</ng-container>

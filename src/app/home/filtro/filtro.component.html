@@ -1,0 +1,18 @@
+<div class="filtros">
+  <label class="preco">
+    <span>Categoria</span>
+    <select [value]="filtros.categoria || ''" (change)="onCategoriaChange($event)">
+      <option value="">Todas</option>
+      <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+    </select>
+  </label>
+    <label class="preco">
+    <span>Preço</span>
+    <div>
+      de
+      <input type="number" [value]="filtros.precoMin || ''" (input)="onPrecoMinChange($event)" />
+      a
+      <input type="number" [value]="filtros.precoMax || ''" (input)="onPrecoMaxChange($event)" />
+    </div>
+  </label>
+</div>

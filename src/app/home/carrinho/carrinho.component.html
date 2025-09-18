@@ -1,0 +1,24 @@
+<div class="modal-backdrop" *ngIf="aberto">
+  <div class="modal-content">
+    <button class="close-btn" (click)="fecharModal()">&#10005;</button>
+    <h2 *ngIf="tipo === 'carrinho'">Carrinho</h2>
+    <h2 *ngIf="tipo === 'favoritos'">Favoritos</h2>
+    <div *ngIf="itens.length === 0">Nenhum item.</div>
+    <div *ngFor="let item of itens" class="item-card">
+      <img [src]="item.imagem" [alt]="item.nome" />
+      <div class="info">
+        <div>{{ item.nome }}</div>
+        <div>R$ {{ item.preco }}</div>
+        <div *ngIf="tipo === 'carrinho'">
+          <button (click)="alterarQuantidade(item, -1)">-</button>
+          <span>{{ item.quantidade }}</span>
+          <button (click)="alterarQuantidade(item, 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" (click)="removerItem(item)">Remover</button>
+    </div>
+    <div *ngIf="tipo === 'carrinho'" class="total">
+      Total: <b>R$ {{ total }}</b>
+    </div>
+  </div>
+</div>
